@@ -13,13 +13,15 @@
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
 	<script src="https://unpkg.com/papaparse@5.1.0/papaparse.min.js"></script>
 	
-	<link rel="stylesheet" href="sidebar/sidebar.min.css"/>
-	<script src="sidebar/sidebar.min.js"></script>
-	<script
-			  src="https://code.jquery.com/jquery-3.4.1.min.js"
-			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			  crossorigin="anonymous"></script>	
-	
+	<link rel="stylesheet" href="plugins/sidebar.min.css"/>
+	<script src="plugins/sidebar.min.js"></script>
+	<script src="plugins/leaflet-slider.min.js"></script>
+
+	<!-- **************** jquery ******************* -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>	
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>	
+	<link rel="stylesheet" href="plugins/jquery-ui.css"/>
+
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	<style>
 		html, body {
@@ -34,34 +36,57 @@
 			height: 400px;
 			margin-left: 0;
 		}
+		.sidebar-tabs {
+			box-shadow: 0 0 3px #888;
+		}
+		#sidebar {
+			border: none;
+		}
+
+		#sidebar.collapsed {
+			boder: none;
+		}
 		
-		.disabledLayerButton {
-			background-color: lightgray!important;
-			color: gray!important;
+		.icon {
+			height: 90%;
+			width: 90%;
+			border-radius: 3px;
 		}
-		.layerButton {
-			display: inline-block;
-			border-radius: 60px;
-			box-shadow: 0px 0px 2px #888;
-			font-size: 8px;
-			padding: 5px;
-			text-decoration: none;
+		#filter {
+			height: 20px;
+			width: 20px;
 		}
-		#pm10 {
-			background-color: blueviolet;
-			color: white;
+		.filter-buttons-container {
+			top: 26px;
+			width: 116px;
 		}
-		.filter-buttons {
+
+		.weather-buttons-container {
+			top: 26px;
+			width: 116px;
+		}
+
+		.buttons-container {
+			background-color: white;
+			box-shadow: 2px 1px 3px rgba(36, 30, 30, 0.349);
+			border-radius: 100px;
+			padding: 0 20px 0px 60px;
 			display: flex;
 			flex-flow: row nowrap;
 			justify-content: flex-start;
-			padding: 0;
 			position: absolute;
-			top: 38px;
+			left: -45px;
 		}
 		.filter-button {
 			margin: 4px;
-			min-width: 20px;
+			min-width: 33px;
+			height: 33px;
+			background-color: #6cd86cd0;
+			border-radius: 2px;
+		}
+		.disabled-layer-button {
+			background-color: transparent !important;
+			box-shadow: 0 0 0 transparent;
 		}
 		li {
     		list-style-type: none;
@@ -71,7 +96,7 @@
 		}
 		
 		
-	     .leaflet-popup-content-wrapper {
+		.leaflet-popup-content-wrapper {
 			background: rgb(111, 51, 51);
 			color: rgb(255,255,255);
 			text-align: center;
@@ -96,9 +121,8 @@
         <div class="sidebar-tabs">
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
-                <!-- <li class="disabled"><a id="pm10" href="#pm10" role="tab" class="layerButton"><i>PM10</i></a></li> -->
-                <li><a href="#filters" role="tab"><i class="fa fa-filter"></i></a></li>
-                <li><a href="https://github.com/Turbo87/sidebar-v2" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>
+                <li><a href="#filters" role="tab"><img src="image/img1_pm10.png" class="icon"/></a></li>
+                <li><a href="#weather" role="tab"><img src="image/img_meteo0.png" class="icon"/></a></li>
             </ul>
 
             <ul role="tablist">
@@ -108,28 +132,19 @@
 
         <!-- Tab panes -->
         <div class="sidebar-content transparent-background">
-            <div class="sidebar-pane" id="home">
-                <h1 class="sidebar-header">
-                    sidebar-v2
-                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
-                </h1>
-            </div>
             <div class="sidebar-pane" id="filters">
-				<ul class="filter-buttons">
-					<li class="filter-button"><a id="pm10" href="#pm10" class="layerButton"><i>PM10</i></a></li>
-					<li class="filter-button"><a id="pm10" href="#pm10" class="layerButton"><i>PM10</i></a></li>
-					<li class="filter-button"><a id="pm10" href="#pm10" class="layerButton"><i>PM10</i></a></li>
+				<ul class="buttons-container filter-buttons-container">
+					<li class="filter-button"  id="pm10"><a href="#pm10"><img class="icon" src="image/img1_pm10.png"/></a></li>
+					<li class="filter-button" id="pm25"><a href="#pm25"><img class="icon" src="image/img2_pm2_5.png"/></a></li>
+					<li class="filter-button" id="pm1"><a href="#pm1"><img class="icon" src="image/img3_pm1.png"/></a></li>
 				</ul>
             </div>
-            <div class="sidebar-pane" id="filters">
-				<ul class="filter-buttons">
-					<li class="filter-button"><a id="pm10" href="#pm10" class="layerButton"><i>PM10</i></a></li>
-					<li class="filter-button"><a id="pm10" href="#pm10" class="layerButton"><i>PM10</i></a></li>
-					<li class="filter-button"><a id="pm10" href="#pm10" class="layerButton"><i>PM10</i></a></li>
+            <div class="sidebar-pane" id="weather">
+				<ul class="buttons-container weather-buttons-container">
+					<li class="weather-button" id="wind"><a><img class="icon" src="image/img_meteo1_vent.png"/></a></li>
+					<li class="weather-button" id="temp"><a><img class="icon" src="image/img_meteo2_temperature.png"/></a></li>
 				</ul>
-            </div>
-
-
+			</div>	
 			<div class="sidebar-pane" id="settings">
                 <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
             </div>
@@ -139,15 +154,15 @@
 	<div id='map' class='sidebar-map'></div>
 
 	<div class="leaflet-top leaflet-right" style="margin-right: 10px; margin-top: 10px;">
-			<img src="image/temperature.svg" width="40" height="45">
-		</div>
+		<img src="image/temperature.svg" width="40" height="45">
+	</div>
 		
 		
-		<div class="leaflet-top leaflet-right" style="margin-right: 10px; margin-top: 60px;">
-			<img src="image/weather.svg" width="40" height="45">
-		</div>
+	<div class="leaflet-top leaflet-right" style="margin-right: 10px; margin-top: 60px;">
+		<img src="image/weather.svg" width="40" height="45">
+	</div>
 		
-<script>	
+	<script>	
 
 
 
@@ -166,12 +181,17 @@
 		id: 'mapbox.streets'
 	}).addTo(map);
 
-
+	var greenMarker = L.icon({
+		iconUrl: 'image/img4_marqueur_vert.png',
+		iconSize:     [40, 40], // size of the icon
+		iconAnchor:   [12, 40], // point of the icon which will correspond to marker's location
+		popupAnchor:  [0, -43] // point from which the popup should open relative to the iconAnchor
+	});
 
 	function onLocationFound(e) {
 		var radius = e.accuracy / 2;
 
-		L.marker(e.latlng).addTo(map)
+		L.marker(e.latlng, {icon: greenMarker}).addTo(map)
 			.bindPopup("You are within " + radius + " meters from this point");
 
 		L.circle(e.latlng, radius).addTo(map);
@@ -213,9 +233,11 @@
 	//-----------------------------Add points   
 	const obj = JSON.parse(data);
 	var i;
+	var polylineArr = [];
 	for (i = 0; i < obj.length ; i++) {
 		//console.log(obj[i].Latitude); 
 		//L.marker([obj[i].Latitude, obj[i].Longitude], {icon: greenIcon}).addTo(map).bindPopup('<p>date<br />hour<br />values of pollution</p>');
+		var dateString = obj[i].Jour + ' ' + obj[i].Heure;
 		
 		var strongness;
 		
@@ -230,8 +252,8 @@
 			[obj[i].Latitude+0.0001*strongness, obj[i].Longitude+0.0002*strongness]
 		];            
 		  
-		var polylineShadow = L.polyline(polylinePointsShadow).setStyle({weight:4,color: 'grey',opacity: 0.4 }).addTo(map); 
-		
+		var polylineShadow = L.polyline(polylinePointsShadow, {time: dateString}).setStyle({weight:4,color: 'grey',opacity: 0.4 }).addTo(map); 
+		polylineArr.push(polylineShadow);
 		var polylinePoints = [
 			[obj[i].Latitude, obj[i].Longitude],
 			[obj[i].Latitude+0.0005*strongness, obj[i].Longitude]
@@ -241,12 +263,13 @@
 		var colorV = (15-obj[i].PM1).toString(16).replace("-", "");;
 		
 		var finalColor = '#'.concat(colorR).concat(colorV).concat('0');
-		console.log(finalColor); 
 		
-		var polyline = L.polyline(polylinePoints).setStyle({weight:4,color: finalColor,opacity: 1 }).addTo(map).bindPopup('<p>date<br />hour<br />values of pollution</p>');
+		console.log(obj[i].Jour + ' ' + obj[i].Heure);
+		var polyline = L.polyline(polylinePoints, {time: dateString}).setStyle({weight:4,color: finalColor,opacity: 1 }).bindPopup('<p>date<br />hour<br />values of pollution</p>');
 		
-
+		polylineArr.push(polyline)
 	}	
+	var polylineLayer = L.layerGroup(polylineArr).addTo(map);
 	//END----------------------------- add points
 
 	// Sidebar
@@ -269,19 +292,41 @@
  
 	$('#pm10').click(function() {
 		if (state.isSet('pm10')) {
-			$(this).addClass('disabledLayerButton');
+			$(this).addClass('disabled-layer-button');
 		} else {
-			$(this).removeClass('disabledLayerButton');
+			$(this).removeClass('disabled-layer-button');
 		}
 		state.toggle('pm10');
+	});
+	$('#pm25').click(function() {
+		if (state.isSet('pm25')) {
+			$(this).addClass('disabled-layer-button');
+		} else {
+			$(this).removeClass('disabled-layer-button');
+		}
+		state.toggle('pm25');
+	});
+	$('#pm1').click(function() {
+		if (state.isSet('pm1')) {
+			$(this).addClass('disabled-layer-button');
+		} else {
+			$(this).removeClass('disabled-layer-button');
+		}
+		state.toggle('pm1');
 	});
 	// END sidebar
 
 
+	// Time slider
+	var sliderControl = L.control.sliderControl({position: "topright", layer: polylineLayer, follow: 3});
+	map.addControl(sliderControl);
+	sliderControl.startSlider();
+	// END time slider
+
 	map.locate({setView: true, maxZoom: 16});
 
 
-	
+
 </script>
 
 
