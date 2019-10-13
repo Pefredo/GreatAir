@@ -44,9 +44,15 @@
 		}
 
 		#sidebar.collapsed {
-			boder: none;
+			border: none;
 		}
-		
+		.sidebar-tabs > li.active, .sidebar-tabs > ul > li.active {
+			background-color: transparent !important;
+		}
+
+		.sidebar-tabs > ul > li {
+			margin-bottom: 15px;
+		}
 		.icon {
 			height: 90%;
 			width: 90%;
@@ -57,13 +63,14 @@
 			width: 20px;
 		}
 		.filter-buttons-container {
-			top: 26px;
+			top: 40px;
 			width: 116px;
+			padding: 0 20px 0px 60px;
 		}
 
 		.weather-buttons-container {
-			top: 26px;
-			width: 116px;
+			top: 95px;
+			padding: 0 20px 0px 50px
 		}
 
 		.buttons-container {
@@ -76,12 +83,19 @@
 			justify-content: flex-start;
 			position: absolute;
 			left: -45px;
+			height: 40px;
 		}
 		.filter-button {
 			margin: 4px;
-			min-width: 33px;
-			height: 33px;
+			min-width: 32px;
+			height: 32px;
 			background-color: #6cd86cd0;
+			border-radius: 2px;
+		}
+		.weather-button {
+			margin: 4px;
+			min-width: 32px;
+			height: 32px;
 			border-radius: 2px;
 		}
 		.disabled-layer-button {
@@ -373,7 +387,7 @@
 
 
 	// Time slider
-	var sliderControl = L.control.sliderControl({position: "topright", layer: polylineLayer, follow: 6});
+	var sliderControl = L.control.sliderControl({position: "bottomleft", layer: polylineLayer, follow: 6});
 	map.addControl(sliderControl);
 	sliderControl.startSlider();
 	// END time slider
