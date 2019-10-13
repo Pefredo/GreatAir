@@ -41,6 +41,9 @@
 		}
 		.sidebar-tabs {
 			box-shadow: 0 0 3px #888;
+			border-radius: 4px;
+			background: rgb(140, 140, 140);
+			opacity : 0.8;
 		}
 		#sidebar {
 			border: none;
@@ -54,12 +57,20 @@
 		}
 
 		.sidebar-tabs > ul > li {
+			vertical-align:middle; 
+			text-align:center;
 			margin-bottom: 15px;
 		}
+		.sidebar-tabs > ul > li > a {
+			display: table-cell;
+			vertical-align:middle; 
+			text-align:center;
+			height: 30px;
+			width: 40px;
+		}
 		.icon {
-			height: 90%;
-			width: 90%;
-			border-radius: 3px;
+			height: 100%;
+			width: 100%;
 		}
 		#filter {
 			height: 20px;
@@ -67,8 +78,8 @@
 		}
 		.filter-buttons-container {
 			top: 40px;
-			width: 116px;
-			padding: 0 20px 0px 60px;
+			width: 145px;
+			padding: 0 20px 0px 50px;
 		}
 
 		.weather-buttons-container {
@@ -77,7 +88,8 @@
 		}
 
 		.buttons-container {
-			background-color: white;
+			background: rgb(140, 140, 140);
+			opacity : 0.8;
 			box-shadow: 2px 1px 3px rgba(36, 30, 30, 0.349);
 			border-radius: 100px;
 			padding: 0 20px 0px 60px;
@@ -88,20 +100,20 @@
 			left: -45px;
 			height: 40px;
 		}
-		.filter-button {
+		.sidebar-button {
 			margin: 4px;
-			min-width: 32px;
+			width: 42px;
 			height: 32px;
-			background-color: #6cd86cd0;
+			background-color: #44c0c0ff;
 			border-radius: 2px;
+			opacity : 1;
 		}
-		.weather-button {
-			margin: 4px;
-			min-width: 32px;
-			height: 32px;
-			border-radius: 2px;
+		.sidebar-button > a {
+			display:table-cell; 
+			vertical-align:middle; 
+			text-align:center
 		}
-		.disabled-layer-button {
+		.disabled-sidebar-button {
 			background-color: transparent !important;
 			box-shadow: 0 0 0 transparent;
 		}
@@ -118,24 +130,19 @@
 			color: rgb(255,255,255);
 			text-align: left;
 			font-family: 'Times New Roman', serif;
-			font-size:16px;
+			font-size: 16px;
 			box-shadow: 0 3px 14px rgba(0,0,0,0.4);
 			
 		}
 		.leaflet-popup-tip {
 			background: rgb(68, 192, 192);
 		}
-		
-		.sidebar-tabs {
-			background: rgb(140, 140, 140);
-			opacity : 0.8;
-		}
-		
+				
 		#slider {
 			margin-top: 0px;
 		}
 
-		.ui-slider-horizontal { // line
+		.ui-slider-horizontal { /*line*/
 		  width: 100%;
 		  height: 18.5px;
 		  cursor: pointer;
@@ -146,7 +153,7 @@
 		  margin-bottom: -40px;
 
 		}
-		.ui-slider-handle {  //point
+		.ui-slider-handle {  /*point*/
 		  border: 5px solid #000000 !important;
 		  height: 40px !important;
 		  width: 20px !important;
@@ -169,8 +176,8 @@
         <div class="sidebar-tabs">
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
-                <li><a href="#filters" role="tab"><img src="image/img1_pm10.png" class="icon"/></a></li>
-                <li><a href="#weather" role="tab"><img src="image/img_meteo0.png" class="icon"/></a></li>
+                <li><a href="#filters" role="tab"><img src="image/img_bouton1.png" class="icon"/></a></li>
+                <li><a href="#weather" role="tab"><img src="image/img_bouton2.png" class="icon"/></a></li>
             </ul>
 
             <ul role="tablist">
@@ -182,15 +189,15 @@
         <div class="sidebar-content transparent-background">
             <div class="sidebar-pane" id="filters">
 				<ul class="buttons-container filter-buttons-container">
-					<li class="filter-button"  id="pm10"><a href="#pm10"><img class="icon" src="image/img1_pm10.png"/></a></li>
-					<li class="filter-button" id="pm25"><a href="#pm25"><img class="icon" src="image/img2_pm2_5.png"/></a></li>
-					<li class="filter-button" id="pm1"><a href="#pm1"><img class="icon" src="image/img3_pm1.png"/></a></li>
+					<li class="sidebar-button"  id="pm10"><a href="#pm10"><img class="icon" src="image/img_bouton1a.png"/></a></li>
+					<li class="sidebar-button" id="pm25"><a href="#pm25"><img class="icon" src="image/img_bouton1b.png"/></a></li>
+					<li class="sidebar-button" id="pm1"><a href="#pm1"><img class="icon" src="image/img_bouton1c.png"/></a></li>
 				</ul>
             </div>
             <div class="sidebar-pane" id="weather">
 				<ul class="buttons-container weather-buttons-container">
-					<li class="weather-button" id="wind"><a><img class="icon" src="image/img_meteo1_vent.png"/></a></li>
-					<li class="weather-button" id="temp"><a><img class="icon" src="image/img_meteo2_temperature.png"/></a></li>
+					<li class="sidebar-button" id="wind"><a><img class="icon" src="image/img_bouton2a.png"/></a></li>
+					<li class="sidebar-button" id="temp"><a><img class="icon" src="image/img_bouton2b.png"/></a></li>
 				</ul>
 			</div>	
 			<div class="sidebar-pane" id="settings">
@@ -227,7 +234,8 @@
 
 	var map = L.map('map', {
 		center: [48.591087, 7.749935],
-		zoom: 14
+		zoom: 14,
+		zoomControl: false 
 	});
 	
 	L.control.zoom({position: 'bottomright'}).addTo(map);
@@ -395,17 +403,17 @@
  
 	$('#pm10').click(function() {
 		if (state.isSet('pm10')) {
-			$(this).addClass('disabled-layer-button');
+			$(this).addClass('disabled-sidebar-button');
 		} else {
-			$(this).removeClass('disabled-layer-button');
+			$(this).removeClass('disabled-sidebar-button');
 		}
 		state.toggle('pm10');
 	});
 	$('#pm25').click(function() {
 		if (state.isSet('pm25')) {
-			$(this).addClass('disabled-layer-button');
+			$(this).addClass('disabled-sidebar-button');
 		} else {
-			$(this).removeClass('disabled-layer-button');
+			$(this).removeClass('disabled-sidebar-button');
 		}
 		state.toggle('pm25');
 	});
