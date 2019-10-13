@@ -23,6 +23,9 @@
 	<link rel="stylesheet" href="plugins/jquery-ui.css"/>
 
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	
+	<div id="slider"></div>
+	
 	<style>
 		html, body {
 			height: 100%;
@@ -108,6 +111,31 @@
 		.leaflet-popup-tip {
 			background: rgb(111, 51, 51);
 		}
+		
+		#slider {
+  margin-top: 0px;
+}
+
+.ui-slider-horizontal { // line
+  width: 100%;
+  height: 18.5px;
+  cursor: pointer;
+  background: #44c0c0ff;
+  border-radius: 25px;
+  border: px solid #000000;
+  right: 350%;
+
+}
+.ui-slider-handle {  //point
+  border: 5px solid #000000 !important;
+  height: 40px !important;
+  width: 20px !important;
+  border-radius: 50px;
+  background: #44c0c0ff !important;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -7px;
+}
 	
 	</style>
 
@@ -326,7 +354,7 @@
 
 
 	// Time slider
-	var sliderControl = L.control.sliderControl({position: "topright", layer: polylineLayer, follow: 6});
+	var sliderControl = L.control.sliderControl({position: "bottomright", layer: polylineLayer, follow: 6});
 	map.addControl(sliderControl);
 	sliderControl.startSlider();
 	// END time slider
