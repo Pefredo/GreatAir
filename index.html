@@ -310,7 +310,7 @@
 		
 		var finalColor = '#'.concat(colorR).concat(colorV).concat('0');
 		console.log(objsta[i].Jour + ' ' + objsta[i].Heure);
-		var polyline = L.polyline(polylinePoints).setStyle({weight:6,color: finalColor,opacity: 1 }).bindPopup('<p><b>date</b> '+objsta[i].Jour+'<br /><b>hour</b> '+objsta[i].Heure+'<br /><b>values of pollution</b> '+objsta[i].PM1+'</p>');
+		var polyline = L.polyline(polylinePoints).setStyle({weight:6,color: finalColor,opacity: 1 }).bindPopup('<p style="color: #555;">Date <span  style="color: #FFF;"><b>'+objsta[i].Jour+'</b></span></p><p style="color: #555;">Heure <span  style="color: #FFF;"><b>'+objsta[i].Heure+'</b></span></p><p style="color: #555;">Niveau de pollution<span  style="color: #FFF;"><b> '+objsta[i].PM1+' µg/m3</b></span></p>');
 		
 		var polylinegroup = L.layerGroup([polylineShadow, polyline], {time: dateString});
 		polylineSta.push(polylinegroup);
