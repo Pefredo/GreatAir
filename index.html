@@ -69,8 +69,12 @@
 			width: 40px;
 		}
 		.icon {
-			height: 100%;
-			width: 100%;
+			width: 42px;
+			height: 32px;
+		}
+		.tab-img {
+			width: 40px;
+			height: 30px;
 		}
 		#filter {
 			height: 20px;
@@ -80,6 +84,9 @@
 			top: 40px;
 			width: 145px;
 			padding: 0 20px 0px 50px;
+		}
+		.ui-slider-handle {
+			border : none !important;
 		}
 
 		.weather-buttons-container {
@@ -112,6 +119,12 @@
 			display:table-cell; 
 			vertical-align:middle; 
 			text-align:center
+		}
+		.tab-img {
+			margin-top: 5px;
+		}
+		.logo {
+			background-color: white;
 		}
 		.disabled-sidebar-button {
 			background-color: transparent !important;
@@ -154,7 +167,7 @@
 
 		}
 		.ui-slider-handle {  /*point*/
-		  border: 5px solid #000000 !important;
+		  border: 1px solid #000000 !important;
 		  height: 40px !important;
 		  width: 20px !important;
 		  border-radius: 50px;
@@ -175,9 +188,9 @@
         <!-- Nav tabs -->
         <div class="sidebar-tabs">
             <ul role="tablist">
-                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
-                <li><a href="#filters" role="tab"><img src="image/img_bouton1.png" class="icon"/></a></li>
-                <li><a href="#weather" role="tab"><img src="image/img_bouton2.png" class="icon"/></a></li>
+                <li><a href="#home" role="tab" class="logo"><img src="image/logo_greatair.png" class="tab-img"/></a></li>
+                <li><a href="#filters" role="tab"><img src="image/img_bouton1.png" class="tab-img"/></a></li>
+                <li><a href="#weather" role="tab"><img src="image/img_bouton2.png" class="tab-img"/></a></li>
             </ul>
 
             <ul role="tablist">
@@ -419,9 +432,9 @@
 	});
 	$('#pm1').click(function() {
 		if (state.isSet('pm1')) {
-			$(this).addClass('disabled-layer-button');
+			$(this).addClass('disabled-sidebar-button');
 		} else {
-			$(this).removeClass('disabled-layer-button');
+			$(this).removeClass('disabled-sidebar-button');
 		}
 		state.toggle('pm1');
 	});
