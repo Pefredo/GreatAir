@@ -253,7 +253,7 @@
 		L.marker(e.latlng, {icon: greenMarker}).addTo(map)
 			.bindPopup("You are within " + radius + " meters from this point");
 
-		L.circle(e.latlng, radius).addTo(map);
+		//L.circle(e.latlng, radius).addTo(map);
 	}
 
 	function onLocationError(e) {
@@ -364,7 +364,7 @@
 		
 		var finalColor = '#'.concat(colorR).concat(colorV).concat('0');
 		console.log(obj[i].Jour + ' ' + obj[i].Heure);
-		var polyline = L.polyline(polylinePoints).setStyle({weight:6,color: finalColor,opacity: 1 }).bindPopup('<p>date<br />hour<br />values of pollution</p>');
+		var polyline = L.polyline(polylinePoints).setStyle({weight:6,color: finalColor,opacity: 1 }).bindPopup('<p style="color: #555;">Date <span  style="color: #FFF;"><b>'+objsta[i].Jour+'</b></span></p><p style="color: #555;">Heure <span  style="color: #FFF;"><b>'+objsta[i].Heure+'</b></span></p><p style="color: #555;">Niveau de pollution<span  style="color: #FFF;"><b> '+objsta[i].PM1+' µg/m3</b></span></p>');
 		
 		var polylinegroup = L.layerGroup([polylineShadow, polyline], {time: dateString});
 		polylineArr.push(polylinegroup);
