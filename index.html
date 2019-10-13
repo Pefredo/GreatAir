@@ -114,16 +114,16 @@
 		
 		
 		.leaflet-popup-content-wrapper {
-			background: rgb(111, 51, 51);
+			background: rgb(68, 192, 192);
 			color: rgb(255,255,255);
-			text-align: center;
+			text-align: left;
 			font-family: 'Times New Roman', serif;
 			font-size:16px;
 			box-shadow: 0 3px 14px rgba(0,0,0,0.4);
 			
 		}
 		.leaflet-popup-tip {
-			background: rgb(111, 51, 51);
+			background: rgb(68, 192, 192);
 		}
 		
 		#slider {
@@ -310,7 +310,7 @@
 		
 		var finalColor = '#'.concat(colorR).concat(colorV).concat('0');
 		console.log(objsta[i].Jour + ' ' + objsta[i].Heure);
-		var polyline = L.polyline(polylinePoints).setStyle({weight:6,color: finalColor,opacity: 1 }).bindPopup('<p>date<br />hour<br />values of pollution</p>');
+		var polyline = L.polyline(polylinePoints).setStyle({weight:6,color: finalColor,opacity: 1 }).bindPopup('<p><b>date</b> '+objsta[i].Jour+'<br /><b>hour</b> '+objsta[i].Heure+'<br /><b>values of pollution</b> '+objsta[i].PM1+'</p>');
 		
 		var polylinegroup = L.layerGroup([polylineShadow, polyline], {time: dateString});
 		polylineSta.push(polylinegroup);
