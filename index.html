@@ -241,7 +241,7 @@
 		
 		var strongness;
 		
-		strongness=obj[i].PM1/15 //0-10
+		strongness = (obj[i].PM1/15); //0-10
 		//obj[i].PM2.5 //?? ^^
 		//obj[i].PM10
 		
@@ -252,22 +252,24 @@
 			[obj[i].Latitude+0.0001*strongness, obj[i].Longitude+0.0002*strongness]
 		];            
 		  
-		var polylineShadow = L.polyline(polylinePointsShadow, {time: dateString}).setStyle({weight:4,color: 'grey',opacity: 0.4 }).addTo(map); 
-		polylineArr.push(polylineShadow);
+		var polylineShadow = L.polyline(polylinePointsShadow).setStyle({weight:4,color: 'grey',opacity: 0.4 });
+
 		var polylinePoints = [
 			[obj[i].Latitude, obj[i].Longitude],
 			[obj[i].Latitude+0.0005*strongness, obj[i].Longitude]
-		];  
+		];
 		
 		var colorR = obj[i].PM1.toString(16);
-		var colorV = (15-obj[i].PM1).toString(16).replace("-", "");;
+		var colorV = (15-obj[i].PM1).toString(16).replace("-", "");
 		
 		var finalColor = '#'.concat(colorR).concat(colorV).concat('0');
 		
 		console.log(obj[i].Jour + ' ' + obj[i].Heure);
-		var polyline = L.polyline(polylinePoints, {time: dateString}).setStyle({weight:4,color: finalColor,opacity: 1 }).bindPopup('<p>date<br />hour<br />values of pollution</p>');
+		var polyline = L.polyline(polylinePoints).setStyle({weight:4,color: finalColor,opacity: 1 }).bindPopup('<p>date<br />hour<br />values of pollution</p>');
 		
-		polylineArr.push(polyline)
+		var polylinegroup = L.layerGroup([polyline, polylineShadow], {time: dateString});
+		polylineArr.push(polylinegroup);
+
 	}	
 	var polylineLayer = L.layerGroup(polylineArr).addTo(map);
 	//END----------------------------- add points
@@ -318,7 +320,7 @@
 
 
 	// Time slider
-	var sliderControl = L.control.sliderControl({position: "topright", layer: polylineLayer, follow: 3});
+	var sliderControl = L.control.sliderControl({position: "topright", layer: polylineLayer, follow: 6});
 	map.addControl(sliderControl);
 	sliderControl.startSlider();
 	// END time slider
