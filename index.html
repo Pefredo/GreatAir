@@ -185,7 +185,7 @@
 			[obj[i].Latitude+0.0001*strongness, obj[i].Longitude+0.0002*strongness]
 		];            
 		  
-		var polylineShadow = L.polyline(polylinePointsShadow).setStyle({weight:4,color: 'grey',opacity: 0.4 }).addTo(map); 
+		var polylineShadow = L.polyline(polylinePointsShadow).setStyle({weight:6,color: 'grey',opacity: 0.4 }).addTo(map); 
 		
 		var polylinePoints = [
 			[obj[i].Latitude, obj[i].Longitude],
@@ -198,7 +198,7 @@
 		var finalColor = '#'.concat(colorR).concat(colorV).concat('0');
 		console.log(finalColor); 
 		
-		var polyline = L.polyline(polylinePoints).setStyle({weight:4,color: finalColor,opacity: 1 }).addTo(map).bindPopup('<p>date<br />hour<br />values of pollution</p>');
+		var polyline = L.polyline(polylinePoints).setStyle({weight:6,color: finalColor,opacity: 1 }).addTo(map).bindPopup('<p>date<br />hour<br />values of pollution</p>');
 		
 
 	}	
